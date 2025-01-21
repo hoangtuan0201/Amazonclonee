@@ -26,7 +26,7 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -56,11 +56,14 @@ products.forEach((product)=>{
     `;
 })
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
-
+//add to cart button
 document.querySelectorAll('.js-add-to-cart').forEach((button)=> {
     button.addEventListener('click', ()=>{
         const productId = button.dataset.productId;
         let matchingItem;
+        //Increment by Selected Quantity
+        let quantitySelector = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+
         //if product name matches
         cart.forEach((item)=> {
             if (item.id === productId) {
@@ -69,11 +72,11 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=> {
         });
 
         if (matchingItem) {
-            matchingItem.quantity++;
+            matchingItem.quantity += quantitySelector;
         } else {
             cart.push({
                 id: productId,
-                quantity: 1
+                quantity: quantitySelector
             });
         }
 
@@ -85,8 +88,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=> {
         // using dom to make the cart quantity change when we click add to cart button
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
-        console.log(cartQuantity);
-        console.log(cart);
     });
 });
 
