@@ -47,10 +47,36 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" 
+          data-product-id="${product.id}">
+<!--          data attribute-->
             Add to Cart
           </button>
         </div>
     `;
 })
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button)=> {
+    button.addEventListener('click', ()=>{
+        const productId = button.dataset.productId;
+        let matchingItem;
+        //if product name matches
+        cart.forEach((item)=> {
+            if (item.id === productId) {
+                matchingItem = item;
+            }
+        });
+
+        if (matchingItem) {
+            matchingItem.quantity++;
+        } else {
+            cart.push({
+                id: productId,
+                quantity: 1
+            });
+        }
+        console.log(cart);
+    });
+});
+// Main idea of Javascript, we use it to save data, generate HTML, and make it interactive.
