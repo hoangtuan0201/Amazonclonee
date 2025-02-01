@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js'
 let productsHTML = ''; //Accumulator Pattern
 
 
@@ -9,7 +10,7 @@ products.forEach((product)=>{
               src="${product.image}">
           </div>
 
-          <div class="product-name limit-text-to-2-lines">
+          <div class="product-name limit-te xt-to-2-lines">
             ${product.name}
           </div>
     
