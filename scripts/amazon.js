@@ -1,4 +1,6 @@
-import {cart} from '../data/cart.js'
+import {cart, addToCart} from '../data/cart.js';
+import {products} from '../data/products.js';
+
 let productsHTML = ''; //Accumulator Pattern
 
 
@@ -56,39 +58,29 @@ products.forEach((product)=>{
         </div>
     `;
 })
+
+//generate the html
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
-//add to cart button
+
+
+// update cart quantity
+function updateCartQuantity() {
+    let cartQuantity = 0
+
+    cart.forEach((item)=>{
+        cartQuantity += item.quantity
+    })
+    // using dom to make the cart quantity change when we click add to cart button
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
+
+
 document.querySelectorAll('.js-add-to-cart').forEach((button)=> {
     button.addEventListener('click', ()=>{
         const productId = button.dataset.productId;
-        let matchingItem;
-        //Increment by Selected Quantity
-        let quantitySelector = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
-
-        //if product name matches
-        cart.forEach((item)=> {
-            if (item.id === productId) {
-                matchingItem = item;
-            }
-        });
-
-        if (matchingItem) {
-            matchingItem.quantity += quantitySelector;
-        } else {
-            cart.push({
-                id: productId,
-                quantity: quantitySelector
-            });
-        }
-
-        let cartQuantity = 0
-
-        cart.forEach((item)=>{
-            cartQuantity += item.quantity
-        })
-        // using dom to make the cart quantity change when we click add to cart button
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
+        addToCart(productId);
+        updateCartQuantity();
     });
 });
 
