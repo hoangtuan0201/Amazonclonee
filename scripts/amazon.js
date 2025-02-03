@@ -63,6 +63,7 @@ products.forEach((product)=>{
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
+
 // update cart quantity
 function updateCartQuantity() {
     let cartQuantity = 0
@@ -73,6 +74,8 @@ function updateCartQuantity() {
     // using dom to make the cart quantity change when we click add to cart button
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
+
+
 
 
 
