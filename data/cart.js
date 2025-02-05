@@ -1,4 +1,4 @@
-export const cart = [
+export let cart = [
     //normalizing the data
     {
         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -30,4 +30,18 @@ export function addToCart(productId) {
         });
     }
 }
+
+export function removeFromCart(productId) {
+    let newCart = [];
+    cart.forEach((cartItem) => {
+        if (cartItem.productId!== productId) {
+            newCart.push(cartItem);
+        }
+    });
+    cart = newCart;
+}
+// neu ma cai id cua delete link ko bang voi id cua product trong cart ta se
+// push cac item !== voi item bi xoa con` item bi xoa se ko dc them vao new cart
+
+
 // we use export to make the variable available in other files instead of using script tag can cause naming conflicts
